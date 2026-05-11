@@ -35,13 +35,13 @@ void LoadIcons() {
 	if(g_icon_ssr.isNull())
 		g_icon_ssr = QIcon(":/icon-main.png");
 	if(g_icon_ssr_idle.isNull())
-		g_icon_ssr_idle = g_icon_ssr;
+		g_icon_ssr_idle = QIcon(":/simplescreenrecorder-idle.png");
 	if(g_icon_ssr_error.isNull())
-		g_icon_ssr_error = g_icon_ssr;
+		g_icon_ssr_error = QIcon(":/simplescreenrecorder-error.png");
 	if(g_icon_ssr_paused.isNull())
-		g_icon_ssr_paused = g_icon_ssr;
+		g_icon_ssr_paused = QIcon(":/simplescreenrecorder-paused.png");
 	if(g_icon_ssr_recording.isNull())
-		g_icon_ssr_recording = g_icon_ssr;
+		g_icon_ssr_recording = QIcon(":/simplescreenrecorder-recording.png");
 
 	g_icon_go_home = QIcon::fromTheme("go-home");
 	if(QApplication::layoutDirection() == Qt::RightToLeft) {
