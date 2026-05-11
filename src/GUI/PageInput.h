@@ -183,6 +183,7 @@ private:
 #if SSR_USE_PIPEWIRE
 	QLabel *m_label_video_pipewire_source;
 	QLineEdit *m_lineedit_video_pipewire_source;
+	QPushButton *m_pushbutton_video_pipewire_screen_size, *m_pushbutton_video_pipewire_preset_720p, *m_pushbutton_video_pipewire_preset_1080p;
 	QLabel *m_label_video_pipewire_width, *m_label_video_pipewire_height;
 	QSpinBoxWithSignal *m_spinbox_video_pipewire_width, *m_spinbox_video_pipewire_height;
 #endif
@@ -283,6 +284,11 @@ private slots:
 	void OnStartSelectWindow();
 #if SSR_USE_OPENGL_RECORDING
 	void OnGLInjectDialog();
+#endif
+#if SSR_USE_PIPEWIRE
+	void OnSetPipeWireScreenSize();
+	void OnSetPipeWirePreset720p();
+	void OnSetPipeWirePreset1080p();
 #endif
 	void OnContinue();
 

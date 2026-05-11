@@ -37,18 +37,21 @@ PageWelcome::PageWelcome(MainWindow* main_window)
 		QLabel *label_logo = new QLabel(scrollarea_contents);
 		label_logo->setPixmap(QPixmap(":/header.png"));
 		label_logo->setScaledContents(true);
+		label_logo->setStyleSheet("background-color: #05070c; border: 2px solid #1f6cc8; border-radius: 14px; padding: 10px;");
 		QLabel *label_welcome = new QLabel(scrollarea_contents);
-		label_welcome->setText(tr("<p>Welcome to SimpleScreenRecorder!</p>\n\n"
-								  "<p>Despite the name, this program actually has a lot of options. Don't worry though, there are really just two things that you "
+		label_welcome->setText(tr("<p>Welcome to Ionity Screen Recorder!</p>\n\n"
+								  "<p>This Ionity edition keeps the proven SimpleScreenRecorder workflow while updating the branding for Antwerp Designs Ionity. "
+								  "Don't worry though, there are really just two things that you "
 								  "need to know. One, the default settings are usually fine. If you don't know what something does, just use the default. "
 								  "Two, almost all settings have tooltips. Just hover the mouse over something to find out what it does.</p>\n\n"
+								  "<p>Wayland recording is available through the PipeWire backend. Leave the PipeWire source blank or enter <code>auto</code> to let your compositor choose a source automatically.</p>\n\n"
 								  "<p>For more information:<br>\n"
-								  "%1</p>").arg("<a href=\"https://www.maartenbaert.be/simplescreenrecorder/\">https://www.maartenbaert.be/simplescreenrecorder/</a>"));
+								  "%1</p>").arg("<a href=\"https://github.com/AntwerpDesignsIonity/ssr\">https://github.com/AntwerpDesignsIonity/ssr</a>"));
 		label_welcome->setWordWrap(true);
 		label_welcome->setTextFormat(Qt::RichText);
 		label_welcome->setTextInteractionFlags(Qt::TextBrowserInteraction);
 		label_welcome->setOpenExternalLinks(true);
-		QPushButton *button_about = new QPushButton(tr("About SimpleScreenRecorder"), scrollarea_contents);
+		QPushButton *button_about = new QPushButton(tr("About Ionity Screen Recorder"), scrollarea_contents);
 		m_checkbox_skip_page = new QCheckBox(tr("Skip this page next time"), scrollarea_contents);
 		m_checkbox_skip_page->setToolTip(tr("Go directly to the input page when the program is started."));
 
@@ -108,7 +111,7 @@ void PageWelcome::AboutDialog() {
 DialogAbout::DialogAbout(PageWelcome* parent)
 	: QDialog(parent) {
 
-	setWindowTitle(tr("About SimpleScreenRecorder"));
+	setWindowTitle(tr("About Ionity Screen Recorder"));
 
 	QString html_about;
 	{

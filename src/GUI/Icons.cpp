@@ -32,6 +32,16 @@ void LoadIcons() {
 	g_icon_ssr_error = QIcon::fromTheme("simplescreenrecorder-error");
 	g_icon_ssr_paused = QIcon::fromTheme("simplescreenrecorder-paused");
 	g_icon_ssr_recording = QIcon::fromTheme("simplescreenrecorder-recording");
+	if(g_icon_ssr.isNull())
+		g_icon_ssr = QIcon(":/icon-main.png");
+	if(g_icon_ssr_idle.isNull())
+		g_icon_ssr_idle = g_icon_ssr;
+	if(g_icon_ssr_error.isNull())
+		g_icon_ssr_error = g_icon_ssr;
+	if(g_icon_ssr_paused.isNull())
+		g_icon_ssr_paused = g_icon_ssr;
+	if(g_icon_ssr_recording.isNull())
+		g_icon_ssr_recording = g_icon_ssr;
 
 	g_icon_go_home = QIcon::fromTheme("go-home");
 	if(QApplication::layoutDirection() == Qt::RightToLeft) {

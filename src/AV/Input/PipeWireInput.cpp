@@ -29,6 +29,20 @@ along with SimpleScreenRecorder.  If not, see <http://www.gnu.org/licenses/>.
 #include <spa/pod/builder.h>
 #include <spa/utils/result.h>
 
+static uint32_t ParsePipeWireNodeId(const QString& node_id) {
+	QString trimmed = node_id.trimmed();
+	if(trimmed.isEmpty() || trimmed.compare("auto", Qt::CaseInsensitive) == 0 || trimmed.compare("default", Qt::CaseInsensitive) == 0) {
+		return PW_ID_ANY;
+	}
+	bool ok = false;
+	unsigned int value = trimmed.toUInt(&ok);
+	if(!ok) {
+		Logger::LogError("[PipeWireInput::Init] " + Logger::tr("Error: PipeWire source must be empty, 'auto', 'default', or a numeric node ID."));
+		throw PipeWireException();
+	}
+	return value;
+}
+
 PipeWireInput::PipeWireInput(const QString& node_id, unsigned int width, unsigned int height, unsigned int frame_rate) {
 
 	m_node_id = node_id;
@@ -161,7 +175,7 @@ void PipeWireInput::Init() {
 
 	int res = pw_stream_connect(m_stream,
 		PW_DIRECTION_INPUT,
-		pw_properties_parse_int(m_node_id.toUtf8().constData()),
+		ParsePipeWireNodeId(m_node_id),
 		(pw_stream_flags) (PW_STREAM_FLAG_AUTOCONNECT | PW_STREAM_FLAG_MAP_BUFFERS),
 		params, 1);
 	if(res != 0) {

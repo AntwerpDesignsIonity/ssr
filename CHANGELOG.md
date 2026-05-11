@@ -4,7 +4,9 @@ SimpleScreenRecorder changes
 Git master
 ----------
 
-- ?
+- Added Ionity branding across the welcome screen, metadata, and artwork.
+- Improved PipeWire onboarding with automatic source selection support and quick size presets.
+- Documented Debian Trixie / Raspberry Pi OS PipeWire build requirements and updated the simple installer helper.
 
 Version 0.4.4
 -------------

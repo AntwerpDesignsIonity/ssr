@@ -368,7 +368,16 @@ PageInput::PageInput(MainWindow* main_window)
 #if SSR_USE_PIPEWIRE
 			m_label_video_pipewire_source = new QLabel(tr("Source:"), groupbox_video);
 			m_lineedit_video_pipewire_source = new QLineEdit(groupbox_video);
-			m_lineedit_video_pipewire_source->setToolTip(tr("The PipeWire source to record.")); // TODO
+			m_lineedit_video_pipewire_source->setPlaceholderText("auto");
+			m_lineedit_video_pipewire_source->setToolTip(tr("The PipeWire source to record.\n"
+															"Leave this blank or enter 'auto' to let PipeWire or the desktop portal choose a source automatically.\n"
+															"If needed, you can also enter a numeric node ID."));
+			m_pushbutton_video_pipewire_screen_size = new QPushButton(tr("Use screen size"), groupbox_video);
+			m_pushbutton_video_pipewire_screen_size->setToolTip(tr("Copies the current primary screen size into the PipeWire width and height fields."));
+			m_pushbutton_video_pipewire_preset_720p = new QPushButton(tr("720p"), groupbox_video);
+			m_pushbutton_video_pipewire_preset_720p->setToolTip(tr("Sets the PipeWire resolution to 1280x720."));
+			m_pushbutton_video_pipewire_preset_1080p = new QPushButton(tr("1080p"), groupbox_video);
+			m_pushbutton_video_pipewire_preset_1080p->setToolTip(tr("Sets the PipeWire resolution to 1920x1080."));
 			m_label_video_pipewire_width = new QLabel(tr("Width:"), groupbox_video);
 			m_spinbox_video_pipewire_width = new QSpinBoxWithSignal(groupbox_video);
 			m_spinbox_video_pipewire_width->setRange(0, SSR_MAX_IMAGE_SIZE);
@@ -423,6 +432,11 @@ PageInput::PageInput(MainWindow* main_window)
 			connect(m_pushbutton_video_x11_select_window, SIGNAL(clicked()), this, SLOT(OnStartSelectWindow()));
 #if SSR_USE_OPENGL_RECORDING
 			connect(m_pushbutton_video_opengl_settings, SIGNAL(clicked()), this, SLOT(OnGLInjectDialog()));
+#endif
+#if SSR_USE_PIPEWIRE
+			connect(m_pushbutton_video_pipewire_screen_size, SIGNAL(clicked()), this, SLOT(OnSetPipeWireScreenSize()));
+			connect(m_pushbutton_video_pipewire_preset_720p, SIGNAL(clicked()), this, SLOT(OnSetPipeWirePreset720p()));
+			connect(m_pushbutton_video_pipewire_preset_1080p, SIGNAL(clicked()), this, SLOT(OnSetPipeWirePreset1080p()));
 #endif
 			connect(m_checkbox_scale, SIGNAL(clicked()), this, SLOT(OnUpdateVideoScaleFields()));
 
@@ -490,6 +504,14 @@ PageInput::PageInput(MainWindow* main_window)
 				layout->addLayout(layout2);
 				layout2->addWidget(m_label_video_pipewire_source);
 				layout2->addWidget(m_lineedit_video_pipewire_source);
+			}
+			{
+				QHBoxLayout *layout2 = new QHBoxLayout();
+				layout->addLayout(layout2);
+				layout2->addWidget(m_pushbutton_video_pipewire_screen_size);
+				layout2->addWidget(m_pushbutton_video_pipewire_preset_720p);
+				layout2->addWidget(m_pushbutton_video_pipewire_preset_1080p);
+				layout2->addStretch();
 			}
 			{
 				QGridLayout *layout2 = new QGridLayout();
@@ -1138,6 +1160,7 @@ void PageInput::OnUpdateVideoAreaFields() {
 #if SSR_USE_PIPEWIRE
 		{{
 			m_label_video_pipewire_source, m_lineedit_video_pipewire_source,
+			m_pushbutton_video_pipewire_screen_size, m_pushbutton_video_pipewire_preset_720p, m_pushbutton_video_pipewire_preset_1080p,
 			m_label_video_pipewire_width, m_label_video_pipewire_height, m_spinbox_video_pipewire_width, m_spinbox_video_pipewire_height,
 		}, (backend == VIDEO_BACKEND_PIPEWIRE)},
 #endif
@@ -1312,6 +1335,27 @@ void PageInput::OnStartSelectWindow() {
 void PageInput::OnGLInjectDialog() {
 	DialogGLInject dialog(this);
 	dialog.exec();
+}
+#endif
+
+#if SSR_USE_PIPEWIRE
+void PageInput::OnSetPipeWireScreenSize() {
+	QScreen *screen = QApplication::primaryScreen();
+	if(screen == nullptr)
+		return;
+	QSize size = screen->geometry().size();
+	SetVideoPipeWireWidth((unsigned int) (size.width() & ~1));
+	SetVideoPipeWireHeight((unsigned int) (size.height() & ~1));
+}
+
+void PageInput::OnSetPipeWirePreset720p() {
+	SetVideoPipeWireWidth(1280);
+	SetVideoPipeWireHeight(720);
+}
+
+void PageInput::OnSetPipeWirePreset1080p() {
+	SetVideoPipeWireWidth(1920);
+	SetVideoPipeWireHeight(1080);
 }
 #endif
 

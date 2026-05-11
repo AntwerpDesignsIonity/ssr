@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=SimpleScreenRecorder
+Name=Ionity Screen Recorder
 Name[ko]=화면 녹화
-Comment=A feature-rich screen recorder that supports X11 and OpenGL
+Comment=An Ionity-branded screen recorder with X11, OpenGL and PipeWire support
 Comment[ca]=Un enregistrador de pantalla molt complet, amb suport per X11 i OpenGL
 Comment[cs]=Záznamník obrazovky s bohatými funkcemi, který podporuje X11 a OpenGL
 Comment[de]=Ein funktionsreicher Bildschirmrekorder, der X11 und OpenGL unterstützt

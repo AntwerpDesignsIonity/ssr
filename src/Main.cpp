@@ -28,6 +28,17 @@ along with SimpleScreenRecorder.  If not, see <http://www.gnu.org/licenses/>.
 #include "MainWindow.h"
 #include "ScreenScaling.h"
 
+static void ApplyIonityPalette(QApplication& application) {
+	QPalette palette = application.palette();
+	palette.setColor(QPalette::Highlight, QColor(0x1F, 0x6C, 0xC8));
+	palette.setColor(QPalette::HighlightedText, QColor(0xFF, 0xFF, 0xFF));
+	palette.setColor(QPalette::Link, QColor(0x2F, 0x84, 0xE7));
+	palette.setColor(QPalette::LinkVisited, QColor(0x6A, 0xA7, 0xF2));
+	palette.setColor(QPalette::Button, QColor(0xEC, 0xF4, 0xFF));
+	palette.setColor(QPalette::ButtonText, QColor(0x10, 0x2A, 0x43));
+	application.setPalette(palette);
+}
+
 int main(int argc, char* argv[]) {
 
 	XInitThreads();
@@ -49,8 +60,8 @@ int main(int argc, char* argv[]) {
 #endif
 
 	// set the application name
-	QCoreApplication::setOrganizationName("SimpleScreenRecorder");
-	QCoreApplication::setApplicationName("SimpleScreenRecorder");
+	QCoreApplication::setOrganizationName("Antwerp Designs Ionity");
+	QCoreApplication::setApplicationName("Ionity Screen Recorder");
 
 	// load Qt translations
 	QTranslator translator_qt;
@@ -75,6 +86,7 @@ int main(int argc, char* argv[]) {
 	// Qt doesn't count hidden windows, so if the main window is hidden and a dialog box is closed, Qt thinks the application should quit.
 	// That's not what we want, so disable this and do it manually.
 	QApplication::setQuitOnLastWindowClosed(false);
+	ApplyIonityPalette(application);
 
 	// create logger
 	Logger logger;

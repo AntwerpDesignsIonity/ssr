@@ -5,6 +5,8 @@ Programming
 -----------
 
 - Maarten Baert
+- Johan Wilhelm van Antwerp (Ionity branding, PipeWire UX, packaging notes)
+- Antwerp Designs Ionity
 - Boran Car (GLInject hotkey workaround)
 - Dubslow (profiles)
 - Dmitry Kostenko ('simpleui' patches)
@@ -15,6 +17,7 @@ Graphics
 - David Revoy (icon)
 - Mrallowski (original camera lens from openclipart.org)
 - Maarten Baert (header)
+- Antwerp Designs Ionity (Ionity logo branding)
 
 Build system
 ------------

@@ -5,6 +5,7 @@
 #  - ENABLE_32BIT_GLINJECT
 #  - ENABLE_X86_ASM
 #  - ENABLE_FFMPEG_VERSIONS
+#  - WITH_PIPEWIRE
 #  - WITH_QT5
 #  - WITH_GLINJECT
 
@@ -81,10 +82,25 @@ if [ -z "$WITH_QT5" ]; then
 	fi
 fi
 
+if [ -z "$WITH_PIPEWIRE" ]; then
+	echo "Detecting PipeWire ..."
+	if pkg-config --exists "libpipewire-0.3" && pkg-config --exists "libspa-0.2"; then
+		echo "  Detected PipeWire development files."
+		WITH_PIPEWIRE="TRUE"
+	else
+		echo "  PipeWire development files not found, PipeWire support will be disabled for this build."
+		echo "  On Debian Trixie / Raspberry Pi OS and newer, run:"
+		echo "    sudo apt update"
+		echo "    sudo apt install libpipewire-0.3-dev"
+		WITH_PIPEWIRE="FALSE"
+	fi
+fi
+
 echo "Auto-detected options:"
 echo "  ENABLE_32BIT_GLINJECT = $ENABLE_32BIT_GLINJECT"
 echo "  ENABLE_X86_ASM = $ENABLE_X86_ASM"
 echo "  ENABLE_FFMPEG_VERSIONS = $ENABLE_FFMPEG_VERSIONS"
+echo "  WITH_PIPEWIRE = $WITH_PIPEWIRE"
 echo "  WITH_QT5 = $WITH_QT5"
 echo "  WITH_GLINJECT = $WITH_GLINJECT"
 
@@ -94,6 +110,7 @@ OPTIONS=()
 OPTIONS+=("-DENABLE_32BIT_GLINJECT=$ENABLE_32BIT_GLINJECT")
 OPTIONS+=("-DENABLE_X86_ASM=$ENABLE_X86_ASM")
 OPTIONS+=("-DENABLE_FFMPEG_VERSIONS=$ENABLE_FFMPEG_VERSIONS")
+OPTIONS+=("-DWITH_PIPEWIRE=$WITH_PIPEWIRE")
 OPTIONS+=("-DWITH_QT5=$WITH_QT5")
 OPTIONS+=("-DWITH_GLINJECT=$WITH_GLINJECT")
 

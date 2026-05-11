@@ -37,7 +37,7 @@ ENUMSTRINGS(MainWindow::enum_nvidia_disable_flipping) = {
 	{MainWindow::NVIDIA_DISABLE_FLIPPING_NO, "no"},
 };
 
-const QString MainWindow::WINDOW_CAPTION = "SimpleScreenRecorder";
+const QString MainWindow::WINDOW_CAPTION = "Ionity Screen Recorder";
 
 MainWindow::MainWindow()
 	: QMainWindow() {
@@ -74,9 +74,9 @@ MainWindow::MainWindow()
 	// warning for non-X11 window systems (e.g. Wayland)
 	if(!IsPlatformX11()) {
 		MessageBox(QMessageBox::Warning, NULL, MainWindow::WINDOW_CAPTION,
-				   MainWindow::tr("You are using a non-X11 window system (e.g. Wayland) which is only partially supported by SimpleScreenRecorder. "
+				   MainWindow::tr("You are using a non-X11 window system (e.g. Wayland) which is only partially supported by Ionity Screen Recorder. "
 								  "Several features will most likely not work properly, consider choosing a X11/Xorg session at the login screen if you experience issues. "
-								  "SimpleScreenRecorder is able to record Wayland sessions using the PipeWire backend, provided that your Wayland compositor supports it."),
+								  "Ionity Screen Recorder is able to record Wayland sessions using the PipeWire backend, provided that your Wayland compositor supports it."),
 				   BUTTON_OK, BUTTON_OK);
 	}
 
@@ -86,7 +86,7 @@ MainWindow::MainWindow()
 			bool disable;
 			if(GetNVidiaDisableFlipping() == NVIDIA_DISABLE_FLIPPING_ASK) {
 				enum_button button = MessageBox(QMessageBox::Warning, NULL, MainWindow::WINDOW_CAPTION,
-												MainWindow::tr("SimpleScreenRecorder has detected that you are using the proprietary NVIDIA driver with flipping enabled. "
+												MainWindow::tr("Ionity Screen Recorder has detected that you are using the proprietary NVIDIA driver with flipping enabled. "
 															   "This is known to cause glitches during recording. It is recommended to disable flipping. Do you want me to do this for you?\n\n"
 															   "You can also change this option manually in the NVIDIA control panel.", "Don't translate 'flipping' unless NVIDIA does the same"),
 												BUTTON_YES | BUTTON_YES_ALWAYS | BUTTON_NO | BUTTON_NO_NEVER, BUTTON_YES);

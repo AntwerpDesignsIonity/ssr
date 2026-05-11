@@ -1,7 +1,7 @@
-SimpleScreenRecorder
-====================
+Ionity Screen Recorder
+======================
 
-SimpleScreenRecorder is a screen recorder for Linux. Despite the name, this program is actually quite complex. It's 'simple' in the sense that it's easier to use than ffmpeg/avconv or VLC :).
+Ionity Screen Recorder is the Antwerp Designs Ionity-branded edition of SimpleScreenRecorder for Linux. It keeps the familiar recorder workflow while adding Ionity branding and refreshed PipeWire guidance for newer Debian-family systems.
 
 There is a separate repository for SimpleScreenRecorder packages:
 https://github.com/MaartenBaert/ssr-packages
@@ -11,7 +11,7 @@ https://github.com/MaartenBaert/ssr-packages
 License
 -------
 
-GNU GPL v3 - read 'COPYING' for more info.
+GNU GPL v3 - read 'COPYING' for more info. Original upstream authorship remains credited to Maarten Baert first, with additional Antwerp Designs Ionity fork work by Johan Wilhelm van Antwerp.
 
 Compiling
 ---------
@@ -21,6 +21,11 @@ Important: If you have already installed SSR using the package manager of your d
 First install the required dependencies (see below). After you have done that, you can compile and install SSR by running:
 
     ./simple-build-and-install
+
+On Debian Trixie, Raspberry Pi OS, and similar 2026-era Debian-based systems, make sure PipeWire development files are installed before building if you want Wayland/PipeWire capture:
+
+    sudo apt update
+    sudo apt install libpipewire-0.3-dev
 
 In order to use OpenGL recording for 32-bit applications on a 64-bit system, you need to compile a 32-bit version of `libssr-glinject.so`. The script will do this automatically if your system is 64-bit. Unfortunately some distributions (older versions of Debian, Ubuntu, Linux Mint, ...) don't properly support compiling 32-bit libraries on a 64-bit system, which results in errors related to missing libraries (usually libGL, libGLU) even when those libraries have in fact been installed. The problem is caused by the fact that the required symlinks are included in the `-dev` packages, but the 32-bit `-dev` packages can't be installed. The simplest solution is to skip compilation of the 32-bit GLInject library, which can be done by running:
 
@@ -119,6 +124,7 @@ You will need the following packages to compile SimpleScreenRecorder:
 - Qt4 (4.8 or newer) or Qt5 (5.7 or newer)
 - ffmpeg or libav (libavformat, libavcodec, libavutil, libswscale)
 - ALSA library
+- PipeWire library (optional, disable with -DWITH_PIPEWIRE=FALSE)
 - PulseAudio library (optional, disable with -DWITH_PULSEAUDIO=FALSE)
 - JACK library (optional, disable with -DWITH_JACK=FALSE)
 - libGL (32 and 64 bit)
@@ -134,12 +140,17 @@ If you have a 64-bit system and you want to compile the 32-bit GLInject library,
 
 ### Debian / Ubuntu
 
+For Debian Trixie, Raspberry Pi OS, and similar newer releases, install the PipeWire development files first if you want Wayland capture:
+
+    sudo apt update
+    sudo apt install libpipewire-0.3-dev
+
 For newer versions (with Qt5):
 
     sudo apt-get install build-essential cmake pkg-config desktop-file-utils libgl1-mesa-dev libglu1-mesa-dev \
     qt5-qmake qttools5-dev qtbase5-dev libqt5x11extras5-dev libavformat-dev libavcodec-dev libavutil-dev \
     libswscale-dev libasound2-dev libpulse-dev libjack-dev libx11-dev libxext-dev libxfixes-dev libxi-dev \
-    libxinerama-dev libv4l-dev
+    libxinerama-dev libv4l-dev libpipewire-0.3-dev
 
 For older versions (with Qt4):
 
